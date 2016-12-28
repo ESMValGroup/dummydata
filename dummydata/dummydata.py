@@ -10,8 +10,12 @@ class DummyData(Dataset):
 
     """
     def __init__(self,filename, **kwargs):
-        """ Return Generator object with given size
         """
+        Return Generator object with given size
+        """
+        if filename[:-3] != '.nc':
+            filename += '.nc'
+
         Dataset.__init__(
                 self,
                 filename,
@@ -21,9 +25,9 @@ class DummyData(Dataset):
         self.method = kwargs.pop('method', 'uniform')
 
         if self.method == 'constant':
-            self.constant = kwargs.pop('constant', None)
-            assert self.constant is not None, 'ERROR: constant value needs to be provided when this method is chosen'
-
+            constant = kwargs.pop('constant', None)
+            assert constant is not None, 'ERROR: constant value needs to be provided when this method is chosen'
+            self.constant = constant
 
 
     def _create_time_dimension(self):
@@ -128,6 +132,10 @@ class DummyData(Dataset):
         if self.method == 'uniform':
             return np.random.uniform(
                 size=(self.month,) + self.variables[self.var].shape[1:])
+        elif self.method == 'constant':
+            return np.ones((self.month,) + self.variables[self.var].shape[1:])*self.constant
+
+
         else:
             assert False
 
