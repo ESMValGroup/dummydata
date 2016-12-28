@@ -8,3 +8,4 @@ M3 = Model3()
 
 # generate a 2D variable
 M2 = Model2()
+M2 = Model2(method='constant')

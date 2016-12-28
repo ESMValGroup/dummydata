@@ -20,6 +20,12 @@ class DummyData(Dataset):
 
         self.method = kwargs.pop('method', 'uniform')
 
+        if self.method == 'constant':
+            self.constant = kwargs.pop('constant', None)
+            assert self.constant is not None, 'ERROR: constant value needs to be provided when this method is chosen'
+
+
+
     def _create_time_dimension(self):
         self.createDimension('time', None)
 
