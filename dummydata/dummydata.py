@@ -18,6 +18,17 @@ class DummyData(Dataset):
                 mode="w",
                 format="NETCDF3_CLASSIC")
 
+    def _create_time_dimension(self):
+        self.createDimension('time', None)
+
+    def _create_coordinate_dimensions(self):
+        self.createDimension('lat', 96)
+        self.createDimension('lon', 144)
+
+    def _create_bnds_dimensions(self):
+        self.createDimension('bnds', 2)
+
+
     def _create_time_variable(self):
         self.createVariable('time', 'f8', ('time',))
         self.createVariable('time_bnds', 'f8', ('time', 'bnds',))
@@ -63,3 +74,50 @@ class DummyData(Dataset):
             'lon'][:] - (360. / 144. / 2.)
         self.variables['lon_bnds'][:, 1] = self.variables[
             'lon'][:] + (360. / 144. / 2.)
+
+
+    def _set_metadata(self):
+
+        self.institution = 'Test'
+        self.institute_id = 'Test'
+        self.experiment_id = 'Test'
+        self.source = 'Test'
+        self.model_id = 'Test'
+        self.forcing = 'Test'
+        self.parent_experiment_id = 'Test'
+        self.parent_experiment_rip = 'Test'
+        self.branch_time = 42.
+        self.contact = 'Test'
+        self.references = 'Test'
+        self.initialization_method = 42
+        self.physics_version = 42
+        self.tracking_id = 'Test'
+        self.acknowledgements = 'Test'
+        self.cesm_casename = 'Test'
+        self.cesm_repotag = 'Test'
+        self.cesm_compset = 'Test'
+        self.resolution = 'Test'
+        self.forcing_note = 'Test'
+        self.processed_by = 'Test'
+        self.processing_code_information = 'Test'
+        self.product = 'Test'
+        self.experiment = 'Test'
+        self.frequency = 'Test'
+        self.creation_date = 'Test'
+
+        self.history = 'Test'
+        self.Conventions = 'Test'
+        self.project_id = 'Test'
+        self.table_id = 'Test'
+        self.title = 'Test'
+        self.parent_experiment = 'Test'
+        self.modeling_realm = 'Test'
+        self.realization = 42
+        self.cmor_version = 'Test'
+
+
+    def _get_variable_data(self):
+
+        return np.random.uniform(
+            size=(self.month,) + self.variables[self.var].shape[1:])
+
