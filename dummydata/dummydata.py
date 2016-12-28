@@ -9,7 +9,7 @@ class DummyData(Dataset):
     Methods:
 
     """
-    def __init__(self,filename):
+    def __init__(self,filename, **kwargs):
         """ Return Generator object with given size
         """
         Dataset.__init__(
@@ -17,6 +17,8 @@ class DummyData(Dataset):
                 filename,
                 mode="w",
                 format="NETCDF3_CLASSIC")
+
+        self.method = kwargs.pop('method', 'uniform')
 
     def _create_time_dimension(self):
         self.createDimension('time', None)
@@ -117,7 +119,9 @@ class DummyData(Dataset):
 
 
     def _get_variable_data(self):
-
-        return np.random.uniform(
-            size=(self.month,) + self.variables[self.var].shape[1:])
+        if self.method == 'uniform':
+            return np.random.uniform(
+                size=(self.month,) + self.variables[self.var].shape[1:])
+        else:
+            assert False
 

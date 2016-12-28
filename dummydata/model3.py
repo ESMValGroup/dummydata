@@ -6,7 +6,7 @@ class Model3(DummyData):
     """
     Dummydata that mimic Model data with three spatial dimensions
     """
-    def __init__(self, var='dummyVariable', month=3, oname="DummyM3.nc"):
+    def __init__(self, var='dummyVariable', month=3, oname="DummyM3.nc", **kwargs):
         """
         create an empty 3D file
 
@@ -17,7 +17,7 @@ class Model3(DummyData):
         var : str
             variable name to specify
         """
-        super(Model3, self).__init__(oname)
+        super(Model3, self).__init__(oname, **kwargs)
         self.oname = oname
 
         self.month = month
