@@ -5,10 +5,25 @@ import numpy
 class Model3(DummyData):
     """ Dummydata that mimic Model data with three spatial dimensions
     """
-    def __init__(self,var='dummyVariable',month = 2):
+    def __init__(self,var='dummyVariable', month = 3):
+        """
+        create an empty 3D file
+
+        Parameters
+        ----------
+        month : int
+            number of months
+        var : str
+            variable name to specify
+        """
         DummyData.__init__(self,"DummyM3.nc")
         self.month = month
         self.var = var
+
+        self.createM3Dimension()
+        self.createM3Variable()
+        self.addM3Data()
+        self.close()
 
     def createM3Dimension(self):
         self.createDimension('time', None)
@@ -17,14 +32,18 @@ class Model3(DummyData):
         self.createDimension('lon', 144)
         self.createDimension('bnds', 2)
 
+
     def createM3Variable(self):
-        self.createVariable('time', 'f8', ('time',))
-        self.createVariable('time_bnds', 'f8', ('time', 'bnds',))
+
+        # create time variable
+        self._create_time_variable()
+
+        # create coordinates
+        self._create_coordinates()
+
+
         self.createVariable('plev', 'f8', ('plev',))
-        self.createVariable('lat', 'f8', ('lat',))
-        self.createVariable('lat_bnds', 'f8', ('lat', 'bnds',))
-        self.createVariable('lon', 'f8', ('lon',))
-        self.createVariable('lon_bnds', 'f8', ('lon', 'bnds',))
+
         self.createVariable(
             self.var,
             'f4',
@@ -35,30 +54,12 @@ class Model3(DummyData):
              ),
             fill_value=1.e+20)
 
-        self.variables['time'].units = 'days since 1850-01-01 00:00:00'
-        self.variables['time'].bounds = 'time_bnds'
-        self.variables['time'].calender = 'noleap'
-        self.variables['time'].axis = 'T'
-        self.variables['time'].long_name = 'time'
-        self.variables['time'].standard_name = 'time'
 
         self.variables['plev'].units = 'Pa'
         self.variables['plev'].axis = 'Z'
         self.variables['plev'].positive = 'down'
         self.variables['plev'].long_name = 'pressure'
         self.variables['plev'].standard_name = 'air_pressure'
-
-        self.variables['lat'].bounds = 'lat_bnds'
-        self.variables['lat'].units = 'degrees_north'
-        self.variables['lat'].axis = 'Y'
-        self.variables['lat'].long_name = 'latitude'
-        self.variables['lat'].standard_name = 'latitude'
-
-        self.variables['lon'].bounds = 'lon_bnds'
-        self.variables['lon'].units = 'degrees_east'
-        self.variables['lon'].axis = 'X'
-        self.variables['lon'].long_name = 'longitude'
-        self.variables['lon'].standard_name = 'longitude'
 
         self.variables[self.var].standard_name = 'air_temperature'
         self.variables[self.var].long_name = 'Air Temperature'
@@ -127,18 +128,15 @@ class Model3(DummyData):
             3000,
             2000,
             1000]
-        self.variables['lat'][:] = numpy.arange(0., 96., 1.) * (180. / 95.) - 90.
-        self.variables['lat_bnds'][:, 0] = self.variables[
-            'lat'][:] - (180. / 95. / 2.)
-        self.variables['lat_bnds'][:, 1] = self.variables[
-            'lat'][:] + (180. / 95. / 2.)
-        self.variables['lon'][:] = numpy.arange(0., 144., 1.) * (360. / 144.)
-        self.variables['lon_bnds'][:, 0] = self.variables[
-            'lon'][:] - (360. / 144. / 2.)
-        self.variables['lon_bnds'][:, 1] = self.variables[
-            'lon'][:] + (360. / 144. / 2.)
+
+
         self.variables[self.var][0:self.month, :, :, :] = numpy.random.uniform(
             size=(self.month,) + self.variables[self.var].shape[1:])
-        self.variables['time'][:]=[56000+item*30 for item in range(self.month)]
-        self.variables['time_bnds'][0:self.month, 0] = self.variables['time'][:] - (1.)
-        self.variables['time_bnds'][0:self.month, 1] = self.variables['time'][:] + (1.)
+
+        # set coordinates
+        self._set_coordinate_data()
+
+        # set the time
+        self._set_time_data()
+
+
