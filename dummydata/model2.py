@@ -6,7 +6,7 @@ class Model2(DummyData):
     """
     Dummydata that mimic Model data with two spatial dimensions
     """
-    def __init__(self,var='dummyVariable2d', month = 3, oname="DummyM2.nc", **kwargs):
+    def __init__(self,var='dummyVariable2d', oname="DummyM2.nc", **kwargs):
         """
         create an empty 3D file
 
@@ -19,7 +19,6 @@ class Model2(DummyData):
         """
         super(Model2, self).__init__(oname, **kwargs)
 
-        self.month = month
         self.var = var
 
         self.createM2Dimension()

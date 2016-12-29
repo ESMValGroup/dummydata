@@ -1,5 +1,6 @@
 from netCDF4 import Dataset
 import numpy as np
+from netCDF4 import netcdftime
 
 class DummyData(Dataset):
     """ A Generator for dummy data based on the netCDF4 Dataset class.
@@ -13,8 +14,10 @@ class DummyData(Dataset):
         """
         Return Generator object with given size
         """
-        if filename[:-3] != '.nc':
+        if filename[-3:] != '.nc':
             filename += '.nc'
+
+        #~ print 'generating filename: ', filename
 
         Dataset.__init__(
                 self,
@@ -23,6 +26,12 @@ class DummyData(Dataset):
                 format="NETCDF3_CLASSIC")
 
         self.method = kwargs.pop('method', 'uniform')
+        self.start = kwargs.pop('start_year', -99)
+        self.stop = kwargs.pop('stop_year', -99)
+        assert self.start > 0, 'Start date needs to be given!'
+        assert self.stop > 0, 'Stop date needs to be given!'
+        assert self.stop >= self.start
+        self.month = (self.stop-self.start+1)*12  # number of monthly timesteps
 
         if self.method == 'constant':
             constant = kwargs.pop('constant', None)
@@ -46,7 +55,7 @@ class DummyData(Dataset):
         self.createVariable('time_bnds', 'f8', ('time', 'bnds',))
         self.variables['time'].units = 'days since 1850-01-01 00:00:00'
         self.variables['time'].bounds = 'time_bnds'
-        self.variables['time'].calender = 'noleap'
+        self.variables['time'].calendar = 'standard'
         self.variables['time'].axis = 'T'
         self.variables['time'].long_name = 'time'
         self.variables['time'].standard_name = 'time'
@@ -71,6 +80,10 @@ class DummyData(Dataset):
         self.variables['lon'].standard_name = 'longitude'
 
     def _set_time_data(self):
+
+        #~ tmp = netcdftime.utime(time_str, calendar=calendar)
+        #~ return tmp.date2num(t)
+
         self.variables['time'][:]=[56000+item*30 for item in range(self.month)]
         self.variables['time_bnds'][0:self.month, 0] = self.variables['time'][:] - (1.)
         self.variables['time_bnds'][0:self.month, 1] = self.variables['time'][:] + (1.)
