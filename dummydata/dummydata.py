@@ -82,18 +82,9 @@ class DummyData(Dataset):
         self.variables['lon'].standard_name = 'longitude'
 
     def _set_time_data(self):
-
         tmp = netcdftime.utime(self.variables['time'].units, calendar=self.variables['time'].calendar)
-
-        base = datetime.datetime(self.start,1,1)
-        d = [base + relativedelta.relativedelta(months=x) for x in range(0, self.month)]
-        print d
-
-
-        #~ self.variables['time'][:]=[56000+item*30 for item in range(self.month)]
+        d = [datetime.datetime(self.start,1,1) + relativedelta.relativedelta(months=x) for x in range(0, self.month)]
         self.variables['time'][:]=tmp.date2num(d)
-        #self.variables['time_bnds'][0:self.month, 0] = self.variables['time'][:] - (1.)
-        #self.variables['time_bnds'][0:self.month, 1] = self.variables['time'][:] + (1.)
 
     def _set_coordinate_data(self):
         self.variables['lat'][:] = np.arange(0., 96., 1.) * (180. / 95.) - 90.
