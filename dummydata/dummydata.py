@@ -1,6 +1,8 @@
 from netCDF4 import Dataset
 import numpy as np
 from netCDF4 import netcdftime
+import datetime
+from dateutil import relativedelta
 
 class DummyData(Dataset):
     """ A Generator for dummy data based on the netCDF4 Dataset class.
@@ -81,12 +83,17 @@ class DummyData(Dataset):
 
     def _set_time_data(self):
 
-        #~ tmp = netcdftime.utime(time_str, calendar=calendar)
-        #~ return tmp.date2num(t)
+        tmp = netcdftime.utime(self.variables['time'].units, calendar=self.variables['time'].calendar)
 
-        self.variables['time'][:]=[56000+item*30 for item in range(self.month)]
-        self.variables['time_bnds'][0:self.month, 0] = self.variables['time'][:] - (1.)
-        self.variables['time_bnds'][0:self.month, 1] = self.variables['time'][:] + (1.)
+        base = datetime.datetime(self.start,1,1)
+        d = [base + relativedelta.relativedelta(months=x) for x in range(0, self.month)]
+        print d
+
+
+        #~ self.variables['time'][:]=[56000+item*30 for item in range(self.month)]
+        self.variables['time'][:]=tmp.date2num(d)
+        #self.variables['time_bnds'][0:self.month, 0] = self.variables['time'][:] - (1.)
+        #self.variables['time_bnds'][0:self.month, 1] = self.variables['time'][:] + (1.)
 
     def _set_coordinate_data(self):
         self.variables['lat'][:] = np.arange(0., 96., 1.) * (180. / 95.) - 90.
