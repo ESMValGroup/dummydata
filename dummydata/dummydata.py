@@ -3,6 +3,7 @@ import numpy as np
 from netCDF4 import netcdftime
 import datetime
 from dateutil import relativedelta
+from meta import Metadata
 
 class DummyData(Dataset):
     """ A Generator for dummy data based on the netCDF4 Dataset class.
@@ -137,6 +138,22 @@ class DummyData(Dataset):
         self.modeling_realm = 'Test'
         self.realization = 42
         self.cmor_version = 'Test'
+
+
+    def _set_variable_metadata(self):
+
+        M = MetaData(self.var)
+
+        self.variables[self.var].standard_name = M.standard_name
+        self.variables[self.var].long_name = M.long_name
+        self.variables[self.var].units = M.units
+        self.variables[self.var].original_name = M.original_name
+        self.variables[self.var].comment = M.comment
+
+        self.variables[self.var].cell_methods = 'time: mean (interval: 30 days)'
+        self.variables[self.var].cell_measures = 'area: areacella'
+        self.variables[self.var].history = ''
+        self.variables[self.var].missing_value = 1.e+20
 
 
     def _get_variable_data(self):

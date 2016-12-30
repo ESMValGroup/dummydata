@@ -47,15 +47,10 @@ class Model2(DummyData):
              ),
             fill_value=1.e+20)
 
-        self.variables[self.var].standard_name = 'air_temperature'
-        self.variables[self.var].long_name = 'Air Temperature'
-        self.variables[self.var].units = 'K'
-        self.variables[self.var].original_name = 'T,PS'
-        self.variables[self.var].comment = 'T interpolated to standard plevs'
-        self.variables[self.var].cell_methods = 'time: mean (interval: 30 days)'
-        self.variables[self.var].cell_measures = 'area: areacella'
-        self.variables[self.var].history = ''
-        self.variables[self.var].missing_value = 1.e+20
+        self._set_variable_metadata()
+        self._set_metadata()
+
+
 
     def addM2Data(self):
         # set variable data

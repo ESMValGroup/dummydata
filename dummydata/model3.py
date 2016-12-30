@@ -42,7 +42,6 @@ class Model3(DummyData):
         # create coordinates
         self._create_coordinates()
 
-
         self.createVariable('plev', 'f8', ('plev',))
 
         self.createVariable(
@@ -62,18 +61,8 @@ class Model3(DummyData):
         self.variables['plev'].long_name = 'pressure'
         self.variables['plev'].standard_name = 'air_pressure'
 
-        self.variables[self.var].standard_name = 'air_temperature'
-        self.variables[self.var].long_name = 'Air Temperature'
-        self.variables[self.var].units = 'K'
-        self.variables[self.var].original_name = 'T,PS'
-        self.variables[self.var].comment = 'T interpolated to standard plevs'
-        self.variables[self.var].cell_methods = 'time: mean (interval: 30 days)'
-        self.variables[self.var].cell_measures = 'area: areacella'
-        self.variables[self.var].history = ''
-        self.variables[self.var].missing_value = 1.e+20
 
-
-
+        self._set_variable_metadata()
         self._set_metadata()
 
 
