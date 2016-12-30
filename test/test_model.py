@@ -29,6 +29,43 @@ class TestData(unittest.TestCase):
         self.assertTrue(os.path.exists(tfile))
         os.remove(tfile)
 
+    def test_size(self):
+        def get_size(f):
+            print f
+            F = netCDF4.Dataset(f, 'r')
+
+            ny = F.dimensions['lat'].size
+            nx = F.dimensions['lon'].size
+            F.close()
+            return ny, nx
+
+        #standard size
+        tfile = tempfile.mktemp(suffix='.nc')
+        M1 = Model2(start_year=2000,stop_year=2015, oname=tfile)
+        ny,nx = get_size(tfile)
+        self.assertEqual(ny, 96)
+        self.assertEqual(nx, 144)
+        os.remove(tfile)
+
+        #tiny
+        tfile = tempfile.mktemp(suffix='.nc')
+        M1 = Model2(start_year=2000,stop_year=2015, oname=tfile,size='tiny')
+        ny,nx = get_size(tfile)
+        self.assertEqual(ny, 18)
+        self.assertEqual(nx, 36)
+        os.remove(tfile)
+
+        #medium
+        tfile = tempfile.mktemp(suffix='.nc')
+        M1 = Model2(start_year=2000,stop_year=2015, oname=tfile,size='medium')
+        ny,nx = get_size(tfile)
+        self.assertEqual(ny, 180)
+        self.assertEqual(nx, 360)
+        os.remove(tfile)
+
+
+
+
     def test_time(self):
 
         def get_time_info(f):

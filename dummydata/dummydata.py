@@ -5,6 +5,7 @@ import datetime
 from dateutil import relativedelta
 from meta import Metadata
 
+
 class DummyData(Dataset):
     """ A Generator for dummy data based on the netCDF4 Dataset class.
 
@@ -41,13 +42,34 @@ class DummyData(Dataset):
             assert constant is not None, 'ERROR: constant value needs to be provided when this method is chosen'
             self.constant = constant
 
+        self._define_size(kwargs.get('size', None))
+
+    def _define_size(self, s):
+        if s is None:
+            # set default size 1.875 x 2.5 deg
+            self.ny = 96
+            self.nx = 144
+            return
+
+        if s == 'medium':  # 1x1 deg
+            self.ny = 180
+            self.nx = 360
+        elif s == 'small': # 5x5 deg
+            self.ny = 180/5
+            self.nx = 360/5
+        elif s == 'tiny':  # 10x10 deg
+            self.ny = 180/10
+            self.nx = 360/10
+        else:
+            assert False, 'Unknown size! ' + s
+
 
     def _create_time_dimension(self):
         self.createDimension('time', None)
 
     def _create_coordinate_dimensions(self):
-        self.createDimension('lat', 96)
-        self.createDimension('lon', 144)
+        self.createDimension('lat', self.ny)
+        self.createDimension('lon', self.nx)
 
     def _create_bnds_dimensions(self):
         self.createDimension('bnds', 2)
@@ -88,16 +110,16 @@ class DummyData(Dataset):
         self.variables['time'][:]=tmp.date2num(d)
 
     def _set_coordinate_data(self):
-        self.variables['lat'][:] = np.arange(0., 96., 1.) * (180. / 95.) - 90.
-        self.variables['lat_bnds'][:, 0] = self.variables[
-            'lat'][:] - (180. / 95. / 2.)
-        self.variables['lat_bnds'][:, 1] = self.variables[
-            'lat'][:] + (180. / 95. / 2.)
-        self.variables['lon'][:] = np.arange(0., 144., 1.) * (360. / 144.)
-        self.variables['lon_bnds'][:, 0] = self.variables[
-            'lon'][:] - (360. / 144. / 2.)
-        self.variables['lon_bnds'][:, 1] = self.variables[
-            'lon'][:] + (360. / 144. / 2.)
+        self.variables['lat'][:] = np.arange(-90., 90., 180./self.ny).astype('float')  # todo is this correct ??
+        #~ self.variables['lat_bnds'][:, 0] = self.variables[
+            #~ 'lat'][:] - (180. / 95. / 2.)
+        #~ self.variables['lat_bnds'][:, 1] = self.variables[
+            #~ 'lat'][:] + (180. / 95. / 2.)
+        self.variables['lon'][:] = np.arange(-180., 180., 360./self.nx).astype('float') #* (360. / 144.)
+        #~ self.variables['lon_bnds'][:, 0] = self.variables[
+            #~ 'lon'][:] - (360. / 144. / 2.)
+        #~ self.variables['lon_bnds'][:, 1] = self.variables[
+            #~ 'lon'][:] + (360. / 144. / 2.)
 
 
     def _set_metadata(self):
