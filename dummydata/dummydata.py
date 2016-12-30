@@ -142,7 +142,7 @@ class DummyData(Dataset):
 
     def _set_variable_metadata(self):
 
-        M = MetaData(self.var)
+        M = Metadata(self.var)
 
         self.variables[self.var].standard_name = M.standard_name
         self.variables[self.var].long_name = M.long_name

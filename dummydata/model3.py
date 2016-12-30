@@ -6,7 +6,7 @@ class Model3(DummyData):
     """
     Dummydata that mimic Model data with three spatial dimensions
     """
-    def __init__(self, var='dummyVariable', oname="DummyM3.nc", **kwargs):
+    def __init__(self, var='ta', oname="DummyM3.nc", **kwargs):
         """
         create an empty 3D file
 
