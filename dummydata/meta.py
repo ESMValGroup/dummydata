@@ -11,6 +11,13 @@ class Metadata(object):
         self.dict.update({'ua' : {'standard_name' : 'xxxxx', 'long_name' : 'xxxxxx', 'units' : 'm s-1', 'original_name' : 'U', 'comment' : 'some wind'}})
         self.dict.update({'mrro' : {'standard_name' : 'runoff_flux', 'long_name' : 'runoff_flux', 'units' : 'kg m-2 s-1', 'original_name' : 'Q', 'comment' : 'some runoff'}})
         self.dict.update({'evspsbl' : {'standard_name' : 'evaporation', 'long_name' : 'evaporation', 'units' : 'kg m-2 s-1', 'original_name' : 'ET', 'comment' : 'some evaporation'}})
+        self.dict.update({'et' : {'standard_name' : 'evaporation_mm', 'long_name' : 'evaporation', 'units' : 'mm d-1', 'original_name' : 'ET', 'comment' : 'some evaporation'}})
+        self.dict.update({'hfls' : {'standard_name' : 'surface_upward_latent_heat_flux', 'long_name' : 'surface_upward_latent_heat_flux', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'some xxx'}})
+        self.dict.update({'mrsos' : {'standard_name' : 'moisture_content_of_soil_layer', 'long_name' : 'moisture_content_of_soil_layer', 'units' : 'kg m-2', 'original_name' : 'xxx', 'comment' : 'some xxx'}})
+
+
+
+
 
     def _set_attributes(self):
         assert self.v in self.dict.keys(), 'ERROR: metadata for variable ' + self.v + ' is unknown!'
