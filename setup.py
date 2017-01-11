@@ -16,7 +16,7 @@ from setuptools import setup
 
 
 # requires scipy:
-install_requires = ["numpy>0.1", "netCDF4"]
+install_requires = ["numpy>0.1", "netCDF4", "dateutil"]
 
 
 
