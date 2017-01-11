@@ -11,7 +11,7 @@ before_install:
 
 # command to install dependencies
 install:
-  #- pip install .
+  pip install netCDF4
   #- pip install matplotlib
   #- pip install scipy
   #- pip install sympy
