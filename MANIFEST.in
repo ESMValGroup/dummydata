@@ -1,0 +1,3 @@
+graft doc
+graft dummydata
+prune build
