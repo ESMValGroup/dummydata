@@ -14,6 +14,9 @@ class Metadata(object):
         self.dict.update({'et' : {'standard_name' : 'evaporation_mm', 'long_name' : 'evaporation', 'units' : 'mm d-1', 'original_name' : 'ET', 'comment' : 'some evaporation'}})
         self.dict.update({'hfls' : {'standard_name' : 'surface_upward_latent_heat_flux', 'long_name' : 'surface_upward_latent_heat_flux', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'some xxx'}})
         self.dict.update({'mrsos' : {'standard_name' : 'moisture_content_of_soil_layer', 'long_name' : 'moisture_content_of_soil_layer', 'units' : 'kg m-2', 'original_name' : 'xxx', 'comment' : 'some xxx'}})
+        self.dict.update({'sic' : {'standard_name' : 'sea_ice_area_fraction', 'long_name' : 'sea_ice_area_fraction', 'units' : '%', 'original_name' : 'xxx', 'comment' : 'fraction of grid cell covered by sea ice'}})
+
+
 
 
 
