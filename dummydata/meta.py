@@ -15,10 +15,10 @@ class Metadata(object):
         self.dict.update({'hfls' : {'standard_name' : 'surface_upward_latent_heat_flux', 'long_name' : 'surface_upward_latent_heat_flux', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'some xxx'}})
         self.dict.update({'mrsos' : {'standard_name' : 'moisture_content_of_soil_layer', 'long_name' : 'moisture_content_of_soil_layer', 'units' : 'kg m-2', 'original_name' : 'xxx', 'comment' : 'some xxx'}})
         self.dict.update({'sic' : {'standard_name' : 'sea_ice_area_fraction', 'long_name' : 'sea_ice_area_fraction', 'units' : '%', 'original_name' : 'xxx', 'comment' : 'fraction of grid cell covered by sea ice'}})
+        self.dict.update({'ts' : {'standard_name' : 'surface_temperature', 'long_name' : 'surface_temperature', 'units' : 'K', 'original_name' : 'surface_temperature', 'comment' : 'surface_temperature'}})
 
-
-
-
+        self.dict.update({'ua' : {'standard_name' : 'windspeed_u', 'long_name' : 'Air windspeed_u', 'units' : 'm s-1', 'original_name' : 'xxxx', 'comment' : 'windspeed_u'}})
+        self.dict.update({'va' : {'standard_name' : 'windspeed_v', 'long_name' : 'Air windspeed_v', 'units' : 'm s-1', 'original_name' : 'xxxx', 'comment' : 'windspeed_v'}})
 
 
 
