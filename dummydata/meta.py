@@ -20,6 +20,23 @@ class Metadata(object):
         self.dict.update({'ua' : {'standard_name' : 'windspeed_u', 'long_name' : 'Air windspeed_u', 'units' : 'm s-1', 'original_name' : 'xxxx', 'comment' : 'windspeed_u'}})
         self.dict.update({'va' : {'standard_name' : 'windspeed_v', 'long_name' : 'Air windspeed_v', 'units' : 'm s-1', 'original_name' : 'xxxx', 'comment' : 'windspeed_v'}})
 
+        self.dict.update({'sm' : {'standard_name' : 'water content of soil layer', 'long_name' : 'water content of soil layer', 'units' : 'kg m-2', 'original_name' : 'xxxx', 'comment' : 'xxxx'}})
+
+        self.dict.update({'tas' : {'standard_name' : 'near surface temperature', 'long_name' : 'near surface temperature', 'units' : 'K', 'original_name' : 'T', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'zg' : {'standard_name' : 'geopotential height', 'long_name' : 'geopotential height', 'units' : 'm', 'original_name' : 'GPH', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'rlut' : {'standard_name' : 'TOA Outgoing Longwave Radiation', 'long_name' : 'TOA Outgoing Longwave Radiation', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+        self.dict.update({'clt' : {'standard_name' : 'total cloud fraction', 'long_name' : 'total cloud fraction', 'units' : '%', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'LW_CRE' : {'standard_name' : 'longwave cloud radiative effect', 'long_name' : 'longwave cloud radiative effect', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+        self.dict.update({'SW_CRE' : {'standard_name' : 'shortwave cloud radiative effect', 'long_name' : 'shortwave cloud radiative effect', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'hus' : {'standard_name' : 'specific humidity', 'long_name' : 'specific humidity', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+        self.dict.update({'rsut' : {'standard_name' : 'TOA outgoing shortwave radiation', 'long_name' : 'TOA outgoing shortwave radiation', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+
+
 
 
     def _set_attributes(self):
