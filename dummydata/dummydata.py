@@ -47,6 +47,8 @@ class DummyData(Dataset):
         # specifies if coordinate and cell area fields should be appended to output file as 2D fields
         self._append_coordinates = str(kwargs.get('append_coordinates', False))  # as string, as bool attributes not supported by netCDF4 library
         self._append_cellsize = str(kwargs.get('append_cellsize', False))
+        if self._append_cellsize == 'True':
+            self._append_coordinates = 'True'  # cellsize only supported when coordinates in 2D
 
 
     def _define_size(self, s):
@@ -123,11 +125,9 @@ class DummyData(Dataset):
         """
         add ancillary fields like 2D fields fo coordinates and cellsize
         """
-        if self._append_cellsize:
-            pass
-
-
-
+        if self._append_cellsize == 'True':
+            self.createVariable('areacello', 'f8', ('lat','lon', ))
+            self.variables['areacello'][:,:] = np.ones((self.ny,self.nx))
 
 
     def _set_time_data(self):

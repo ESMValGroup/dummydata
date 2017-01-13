@@ -51,6 +51,21 @@ class TestData(unittest.TestCase):
         F.close()
         os.remove(tfile)
 
+    def tests_cellarea(self):
+        tfile = tempfile.mktemp(suffix='.nc')
+
+        # 1D case --> should automatically become 2D
+        M = Model3(start_year=2000,stop_year=2015, oname=tfile, append_cellsize=True)
+        F = netCDF4.Dataset(tfile, 'r')
+        self.assertEqual(F.variables['lon'].ndim, 2)
+        self.assertEqual(F.variables['lat'].ndim, 2)
+
+        self.assertTrue('areacello' in F.variables.keys())
+        self.assertEqual(F.variables['areacello'].ndim, 2)
+
+        F.close()
+
+        os.remove(tfile)
 
     def test_size(self):
         def get_size(f):
