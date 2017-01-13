@@ -35,6 +35,17 @@ class Metadata(object):
         self.dict.update({'hus' : {'standard_name' : 'specific humidity', 'long_name' : 'specific humidity', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
         self.dict.update({'rsut' : {'standard_name' : 'TOA outgoing shortwave radiation', 'long_name' : 'TOA outgoing shortwave radiation', 'units' : 'W m-2', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
 
+        self.dict.update({'od550aer' : {'standard_name' : 'Ambient Aerosol Optical Thickness at 550 nm', 'long_name' : 'Ambient Aerosol Optical Thickness at 550 nm', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+        self.dict.update({'od870aer' : {'standard_name' : 'Ambient Aerosol Optical Thickness at 870 nm', 'long_name' : 'Ambient Aerosol Optical Thickness at 870 nm', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'abs550aer' : {'standard_name' : 'Ambient Aerosol Absorption Optical Thickness at 550 nm', 'long_name' : 'Ambient Aerosol Absorption Optical Thickness at 550 nm', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'od550lt1aer' : {'standard_name' : 'Ambient Fine Aerosol Optical Thickness at 550 nm', 'long_name' : 'Ambient Fine Aerosol Optical Thickness at 550 nm', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+        self.dict.update({'toz' : {'standard_name' : 'not clear yet', 'long_name' : 'not clear yet', 'units' : '1', 'original_name' : 'xxx', 'comment' : 'xxxxxx'}})
+
+
+
 
 
 
