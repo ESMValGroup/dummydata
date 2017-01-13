@@ -29,6 +29,29 @@ class TestData(unittest.TestCase):
         self.assertTrue(os.path.exists(tfile))
         os.remove(tfile)
 
+    def test_coordinates(self):
+        tfile = tempfile.mktemp(suffix='.nc')
+
+        # 1D case
+        M = Model3(start_year=2000,stop_year=2015, oname=tfile)  # object can not be used further as file is closed!
+        self.assertTrue(os.path.exists(tfile))
+
+        F = netCDF4.Dataset(tfile, 'r')
+        self.assertEqual(F.variables['lon'].ndim, 1)
+        self.assertEqual(F.variables['lat'].ndim, 1)
+        F.close()
+        os.remove(tfile)
+
+        # 2D case
+        M = Model3(start_year=2000,stop_year=2015, oname=tfile, append_coordinates=True)  # object can not be used further as file is closed!
+        self.assertTrue(os.path.exists(tfile))
+        F = netCDF4.Dataset(tfile, 'r')
+        self.assertEqual(F.variables['lon'].ndim, 2)
+        self.assertEqual(F.variables['lat'].ndim, 2)
+        F.close()
+        os.remove(tfile)
+
+
     def test_size(self):
         def get_size(f):
             print f

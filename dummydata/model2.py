@@ -24,6 +24,7 @@ class Model2(DummyData):
         self.createM2Dimension()
         self.createM2Variable()
         self.addM2Data()
+        self.add_ancillary_data()
         self.close()
 
     def createM2Dimension(self):

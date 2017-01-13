@@ -44,6 +44,11 @@ class DummyData(Dataset):
 
         self._define_size(kwargs.get('size', None))
 
+        # specifies if coordinate and cell area fields should be appended to output file as 2D fields
+        self._append_coordinates = str(kwargs.get('append_coordinates', False))  # as string, as bool attributes not supported by netCDF4 library
+        self._append_cellsize = str(kwargs.get('append_cellsize', False))
+
+
     def _define_size(self, s):
         if s is None:
             # set default size 1.875 x 2.5 deg
@@ -87,22 +92,43 @@ class DummyData(Dataset):
 
     def _create_coordinates(self):
 
-        self.createVariable('lat', 'f8', ('lat',))
-        self.createVariable('lat_bnds', 'f8', ('lat', 'bnds',))
-        self.createVariable('lon', 'f8', ('lon',))
-        self.createVariable('lon_bnds', 'f8', ('lon', 'bnds',))
+        if self._append_coordinates == 'True':  # 2D coordinate fields
+            self.createVariable('lat', 'f8', ('lat','lon', ))
+            self.createVariable('lon', 'f8', ('lat','lon', ))
+        else:  # 1D
+            self.createVariable('lat', 'f8', ('lat',))
+            self.createVariable('lon', 'f8', ('lon',))
 
-        self.variables['lat'].bounds = 'lat_bnds'
+        #~ self.variables['lat'].bounds = 'lat_bnds'
         self.variables['lat'].units = 'degrees_north'
         self.variables['lat'].axis = 'Y'
         self.variables['lat'].long_name = 'latitude'
         self.variables['lat'].standard_name = 'latitude'
 
-        self.variables['lon'].bounds = 'lon_bnds'
+        #~ self.variables['lon'].bounds = 'lon_bnds'
         self.variables['lon'].units = 'degrees_east'
         self.variables['lon'].axis = 'X'
         self.variables['lon'].long_name = 'longitude'
         self.variables['lon'].standard_name = 'longitude'
+
+    #~ def _create_coordinates_1D(self):
+        #~ self.createVariable('lat', 'f8', ('lat',))
+        #~ self.createVariable('lat_bnds', 'f8', ('lat', 'bnds',))
+        #~ self.createVariable('lon', 'f8', ('lon',))
+        #~ self.createVariable('lon_bnds', 'f8', ('lon', 'bnds',))
+
+
+
+    def add_ancillary_data(self):
+        """
+        add ancillary fields like 2D fields fo coordinates and cellsize
+        """
+        if self._append_cellsize:
+            pass
+
+
+
+
 
     def _set_time_data(self):
         tmp = netcdftime.utime(self.variables['time'].units, calendar=self.variables['time'].calendar)
@@ -110,12 +136,26 @@ class DummyData(Dataset):
         self.variables['time'][:]=tmp.date2num(d)
 
     def _set_coordinate_data(self):
-        self.variables['lat'][:] = np.arange(-90., 90., 180./self.ny).astype('float')  # todo is this correct ??
+        lat = np.arange(-90., 90., 180./self.ny).astype('float')  # todo is this correct ??
+        lon = np.arange(-180., 180., 360./self.nx).astype('float') #* (360. / 144.)
+
+
+        if self._append_coordinates == 'True': # 2D
+            LAT,LON = np.meshgrid(lat,lon)
+            self.variables['lat'][:,:] = LAT
+            self.variables['lon'][:,:] = LON
+        else: # 1D
+            self.variables['lat'][:] = lat
+            self.variables['lon'][:] = lon
+
+
+
+
         #~ self.variables['lat_bnds'][:, 0] = self.variables[
             #~ 'lat'][:] - (180. / 95. / 2.)
         #~ self.variables['lat_bnds'][:, 1] = self.variables[
             #~ 'lat'][:] + (180. / 95. / 2.)
-        self.variables['lon'][:] = np.arange(-180., 180., 360./self.nx).astype('float') #* (360. / 144.)
+
         #~ self.variables['lon_bnds'][:, 0] = self.variables[
             #~ 'lon'][:] - (360. / 144. / 2.)
         #~ self.variables['lon_bnds'][:, 1] = self.variables[

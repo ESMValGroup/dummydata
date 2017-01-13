@@ -25,6 +25,7 @@ class Model3(DummyData):
         self.createM3Dimension()
         self.createM3Variable()
         self.addM3Data()
+        self.add_ancillary_data()
         self.close()
 
     def createM3Dimension(self):
