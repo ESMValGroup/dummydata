@@ -2,7 +2,7 @@ import sys
 sys.path.append('..')
 
 import os
-import pytest
+#import pytest
 from dummydata import DummyData, Model3
 
 import tempfile
