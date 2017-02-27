@@ -92,6 +92,12 @@ method : string : obligatory
 
 constant : float : obligatory when method='constant'
     specifies the constant value to be used
+    
+append_coordinates : bool
+    specifies if fields with coordinates should be appended
+    
+append_cellsize : bool
+    specifies if fields with the cellsize information should be appended to the output file
 
 
 Some further examples
