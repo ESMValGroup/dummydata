@@ -4,5 +4,19 @@
 # dummydata
 A dummy data generator for the use in testing
 
-The current implementation creates a NetCDF file with three dimensions and some random data. The tests are written using pytest.
+The current implementation creates a NetCDF file two or three dimensions.
 
+## Installation
+
+### Classical way
+
+1. clone the repository
+2. run `python setup.py install`
+
+## Using pip
+
+  > pip install dummydata
+  
+## Using conda
+
+> conda install [-n YOURENV] -c conda-forge dummydata
