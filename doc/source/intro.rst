@@ -6,7 +6,7 @@ Dummydata is a package that allows to generate geospatial data fields with prede
 Installation
 ============
 
-Currently the package is available from `github <https://github.com/pygeo/dummydata>`_ or can be installed via `pip <https://pypi.python.org/pypi/pip>`_
+Currently the package is available from `github <https://github.com/pygeo/dummydata>`_ and can be installed in addition via `pip <https://pypi.python.org/pypi/pip>`_ or `conda <https://conda.io/docs/index.html>`_ .
 
 using github
 ------------
@@ -27,17 +27,23 @@ To install the package using pip, just do the following::
 
     pip install dummydata
 
+using conda
+-----------
+
+To install vai conda do the following::
+
+    conda install [-n YOURENV] -c conda-forge dummydata
+
+
 
 How it works
 ============
 
-Dummydata allows togenerate either two dimensional data fiels with a time vector (e.g. sea surface temperature fields) or a 3D variable with an additional vertical coordinate.
+Dummydata allows to generate either two dimensional data fiels with a time vector (e.g. sea surface temperature fields) or a 3D variable with an additional vertical coordinate.
 
 Currently regular lat/lon grids are supported for coordinates.
 
-
-A small example that generate a random dataset with dimensions (time, lat, lon) is provided as follows
-
+A small example that generates a random dataset with dimensions (time, lat, lon) is provided as follows
 
 .. code:: python
 
@@ -104,7 +110,7 @@ Some further examples
 Current limitations
 -------------------
 
-* only monthly sampling frequencies summported at the moment
+* only monthly sampling frequencies supported at the moment
 * no min/max can be specified to specify the range of the values
 * specification of metadata is currently rather limited and done in *meta.py* which is not very user friendly. As an alternative user specific configuration files could be used.
 
