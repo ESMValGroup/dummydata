@@ -30,7 +30,7 @@ install_requires = ["numpy>0.1", "netCDF4", "dateutil"]
 
 setup(name='dummydata',
 
-      version='0.1', #get_current_version(),
+      version='0.1.1', #get_current_version(),
 
       description='dummydata - package for generation of random daa fields',
 
@@ -39,7 +39,7 @@ setup(name='dummydata',
       maintainer='Alexander Loew',
       maintainer_email='alexander.loew@lmu.de',
 
-      license='APACHE 2',
+      license='Apache 2',
 
       url='https://github.com/pygeo/dummydata',
 
@@ -103,6 +103,16 @@ setup(name='dummydata',
 ########################################################################
 
 # PIP
-#~ python setup.py register
-#~ python setup.py sdist
-#~ python setup.py upload
+
+# pypi documentation
+
+# 1) on a new computer you need to create a .pypirc file like described in the
+# pypi documentation
+# 2) install twine using pip install twine
+# 3) generate package using: python setup.py sdist
+# 4) just upload using twine upload dist/*
+
+
+
+
+
