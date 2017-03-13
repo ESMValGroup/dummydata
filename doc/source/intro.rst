@@ -30,7 +30,7 @@ To install the package using pip, just do the following::
 using conda
 -----------
 
-To install vai conda do the following::
+To install via conda do the following::
 
     conda install [-n YOURENV] -c conda-forge dummydata
 
