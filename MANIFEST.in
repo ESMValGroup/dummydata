@@ -1,3 +1,9 @@
 graft doc
 graft dummydata
 prune build
+global-include LICENSE
+global-include *.rst
+global-include *.py
+global-include *.pyx
+global-include setup.cfg
+prune dist
