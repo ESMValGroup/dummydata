@@ -3,7 +3,8 @@ import numpy as np
 from netCDF4 import netcdftime
 import datetime
 from dateutil import relativedelta
-from meta import Metadata
+
+from .meta import Metadata
 
 
 class DummyData(Dataset):
@@ -20,8 +21,6 @@ class DummyData(Dataset):
         """
         if filename[-3:] != '.nc':
             filename += '.nc'
-
-        #~ print 'generating filename: ', filename
 
         Dataset.__init__(
                 self,

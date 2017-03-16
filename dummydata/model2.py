@@ -1,6 +1,5 @@
-from dummydata import DummyData
+from .dummydata import DummyData
 
-import numpy
 
 class Model2(DummyData):
     """

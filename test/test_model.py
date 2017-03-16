@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 import datetime
 import unittest
 from netCDF4 import netcdftime
@@ -69,7 +71,7 @@ class TestData(unittest.TestCase):
 
     def test_size(self):
         def get_size(f):
-            print f
+            print(f)
             F = netCDF4.Dataset(f, 'r')
 
             ny = F.dimensions['lat'].size
@@ -107,14 +109,14 @@ class TestData(unittest.TestCase):
     def test_time(self):
 
         def get_time_info(f):
-            print f
+            print(f)
             # read netcdf file and extract time information
 
             F = netCDF4.Dataset(f,'r')
             t = F.variables['time']
             tmp = netcdftime.utime(t.units, calendar=t.calendar)
             d = tmp.num2date(t[:])
-            print len(d), d[0], d[-1]
+            print(len(d), d[0], d[-1])
             F.close()
             return len(d), d[0], d[-1]
 
