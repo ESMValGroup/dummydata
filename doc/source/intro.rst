@@ -27,8 +27,8 @@ To install the package using pip, just do the following::
 
     pip install dummydata
 
-using conda
------------
+using conda (not working yet)
+-----------------------------
 
 To install via conda do the following::
 
