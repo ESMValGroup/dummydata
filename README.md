@@ -17,6 +17,6 @@ The current implementation creates a NetCDF file two or three dimensions.
 
   > pip install dummydata
   
-## Using conda
+## Using conda (not working yet!)
 
 > conda install [-n YOURENV] -c conda-forge dummydata
