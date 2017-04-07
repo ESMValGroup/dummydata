@@ -16,7 +16,7 @@ from setuptools import setup
 
 
 # requires scipy:
-install_requires = ["numpy>0.1", "netCDF4", "dateutil"]
+install_requires = ["numpy>0.1", "netCDF4", "python-dateutil"]
 
 
 
@@ -30,7 +30,7 @@ install_requires = ["numpy>0.1", "netCDF4", "dateutil"]
 
 setup(name='dummydata',
 
-      version='0.1.2', #get_current_version(),
+      version='0.1.3', #get_current_version(),
 
       description='dummydata - package for generation of random daa fields',
 
