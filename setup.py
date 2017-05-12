@@ -11,7 +11,7 @@ from setuptools import setup
 
 
 #~ from setuptools import setup, Extension
-#~ from setuptools import find_packages  # Always prefer setuptools over distutils
+from setuptools import find_packages  # Always prefer setuptools over distutils
 
 
 
@@ -30,7 +30,7 @@ install_requires = ["numpy>0.1", "netCDF4", "python-dateutil"]
 
 setup(name='dummydata',
 
-      version='0.1.3', #get_current_version(),
+      version='0.1.4', #get_current_version(),
 
       description='dummydata - package for generation of random daa fields',
 
@@ -84,6 +84,8 @@ setup(name='dummydata',
           # that you indicate whether you support Python 2, Python 3 or both.
           'Programming Language :: Python :: 2.7'
       ],
+
+      packages=find_packages()
 
       #~ ext_modules=[ext_polygon_utils],
       #~ cmdclass={'build_ext': build_ext}
