@@ -3,14 +3,14 @@ sys.path.append('..')
 
 import os
 #import pytest
-from dummydata import DummyData, Model3
+from dummydata import DummyData
 
 import tempfile
 
 
 def test_DummyData_init():
         fname = tempfile.mktemp(suffix='.nc')
-        d = DummyData(fname, start_year=2000, stop_year=2003, var='ta')
+        DummyData(fname, start_year=2000, stop_year=2003, var='ta')
         os.remove(fname)
 
 #~ class TestModel3:

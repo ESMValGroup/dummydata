@@ -2,15 +2,12 @@
 
 from __future__ import print_function
 
-import datetime
 import unittest
 from netCDF4 import netcdftime
 import netCDF4
 
 import sys
 sys.path.append('..')
-
-from nose.tools import assert_raises
 
 from dummydata import Model3, Model2
 import tempfile
@@ -27,7 +24,7 @@ class TestData(unittest.TestCase):
 
     def test_init(self):
         tfile = tempfile.mktemp(suffix='.nc')
-        M1 = Model3(start_year=2000,stop_year=2015, oname=tfile)  # object can not be used further as file is closed!
+        Model3(start_year=2000,stop_year=2015, oname=tfile)  # object can not be used further as file is closed!
         self.assertTrue(os.path.exists(tfile))
         os.remove(tfile)
 
@@ -35,7 +32,7 @@ class TestData(unittest.TestCase):
         tfile = tempfile.mktemp(suffix='.nc')
 
         # 1D case
-        M = Model3(start_year=2000,stop_year=2015, oname=tfile)  # object can not be used further as file is closed!
+        Model3(start_year=2000,stop_year=2015, oname=tfile)  # object can not be used further as file is closed!
         self.assertTrue(os.path.exists(tfile))
 
         F = netCDF4.Dataset(tfile, 'r')
@@ -45,7 +42,7 @@ class TestData(unittest.TestCase):
         os.remove(tfile)
 
         # 2D case
-        M = Model3(start_year=2000,stop_year=2015, oname=tfile, append_coordinates=True)  # object can not be used further as file is closed!
+        Model3(start_year=2000,stop_year=2015, oname=tfile, append_coordinates=True)  # object can not be used further as file is closed!
         self.assertTrue(os.path.exists(tfile))
         F = netCDF4.Dataset(tfile, 'r')
         self.assertEqual(F.variables['lon'].ndim, 2)
@@ -57,7 +54,7 @@ class TestData(unittest.TestCase):
         tfile = tempfile.mktemp(suffix='.nc')
 
         # 1D case --> should automatically become 2D
-        M = Model3(start_year=2000,stop_year=2015, oname=tfile, append_cellsize=True)
+        Model3(start_year=2000,stop_year=2015, oname=tfile, append_cellsize=True)
         F = netCDF4.Dataset(tfile, 'r')
         self.assertEqual(F.variables['lon'].ndim, 2)
         self.assertEqual(F.variables['lat'].ndim, 2)
@@ -81,7 +78,7 @@ class TestData(unittest.TestCase):
 
         #standard size
         tfile = tempfile.mktemp(suffix='.nc')
-        M1 = Model2(start_year=2000,stop_year=2015, oname=tfile)
+        Model2(start_year=2000,stop_year=2015, oname=tfile)
         ny,nx = get_size(tfile)
         self.assertEqual(ny, 96)
         self.assertEqual(nx, 144)
@@ -89,7 +86,7 @@ class TestData(unittest.TestCase):
 
         #tiny
         tfile = tempfile.mktemp(suffix='.nc')
-        M1 = Model2(start_year=2000,stop_year=2015, oname=tfile,size='tiny')
+        Model2(start_year=2000,stop_year=2015, oname=tfile,size='tiny')
         ny,nx = get_size(tfile)
         self.assertEqual(ny, 18)
         self.assertEqual(nx, 36)
@@ -97,14 +94,11 @@ class TestData(unittest.TestCase):
 
         #medium
         tfile = tempfile.mktemp(suffix='.nc')
-        M1 = Model2(start_year=2000,stop_year=2015, oname=tfile,size='medium')
+        Model2(start_year=2000,stop_year=2015, oname=tfile,size='medium')
         ny,nx = get_size(tfile)
         self.assertEqual(ny, 180)
         self.assertEqual(nx, 360)
         os.remove(tfile)
-
-
-
 
     def test_time(self):
 
@@ -121,7 +115,7 @@ class TestData(unittest.TestCase):
             return len(d), d[0], d[-1]
 
         tfile1 = tempfile.mktemp(suffix='.nc')
-        M1 = Model3(start_year=2001,stop_year=2004, oname=tfile1)
+        Model3(start_year=2001,stop_year=2004, oname=tfile1)
         n, t1, t2 = get_time_info(tfile1)
         self.assertEqual(n, 4*12)
         self.assertEqual(t1.year, 2001)
@@ -132,7 +126,7 @@ class TestData(unittest.TestCase):
         self.assertEqual(t2.day, 1)
 
         tfile2 = tempfile.mktemp(suffix='.nc')
-        M1 = Model3(start_year=1998,stop_year=2002, oname=tfile2)
+        Model3(start_year=1998,stop_year=2002, oname=tfile2)
         n, t1, t2 = get_time_info(tfile2)
         self.assertEqual(n, 5*12)
         self.assertEqual(t1.year, 1998)

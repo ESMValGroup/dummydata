@@ -8,8 +8,6 @@ import unittest
 import sys
 sys.path.append('..')
 
-from nose.tools import assert_raises
-
 from dummydata import Metadata
 #~ import tempfile
 #~ import os
@@ -25,7 +23,7 @@ class TestData(unittest.TestCase):
 
     @classmethod
     def test_init(cls):
-        M = Metadata('ta')
+        Metadata('ta')
 
     def test_attr(self):
         M = Metadata('ta')
