@@ -23,7 +23,8 @@ class TestData(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_init(self):
+    @classmethod
+    def test_init(cls):
         M = Metadata('ta')
 
     def test_attr(self):
