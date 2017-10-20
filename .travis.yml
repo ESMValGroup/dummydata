@@ -22,4 +22,4 @@ install:
   - yes | pip uninstall dummydata
 
 script:
-  - nosetests
+  - python setup.py test
