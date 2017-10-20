@@ -115,15 +115,16 @@ class TestData(unittest.TestCase):
             return len(d), d[0], d[-1]
 
         tfile1 = tempfile.mktemp(suffix='.nc')
-        Model3(start_year=2001,stop_year=2004, oname=tfile1)
+        Model2(start_year=2001,stop_year=2004, oname=tfile1)
         n, t1, t2 = get_time_info(tfile1)
         self.assertEqual(n, 4*12)
         self.assertEqual(t1.year, 2001)
         self.assertEqual(t1.month, 1)
-        self.assertEqual(t1.day, 1)
+        self.assertEqual(t1.day, 16)
         self.assertEqual(t2.year, 2004)
         self.assertEqual(t2.month, 12)
-        self.assertEqual(t2.day, 1)
+        self.assertEqual(t2.day, 16)
+        os.remove(tfile1)
 
         tfile2 = tempfile.mktemp(suffix='.nc')
         Model3(start_year=1998,stop_year=2002, oname=tfile2)
@@ -131,13 +132,46 @@ class TestData(unittest.TestCase):
         self.assertEqual(n, 5*12)
         self.assertEqual(t1.year, 1998)
         self.assertEqual(t1.month, 1)
-        self.assertEqual(t1.day, 1)
+        self.assertEqual(t1.day, 16)
         self.assertEqual(t2.year, 2002)
         self.assertEqual(t2.month, 12)
-        self.assertEqual(t2.day, 1)
-
-        os.remove(tfile1)
+        self.assertEqual(t2.day, 16)
         os.remove(tfile2)
+
+    def test_time_bnds(self):
+        """Test the values of the `time_bnds` variable."""
+        def get_time_bnds_as_datetime(filename):
+            """Return `time_bnds` as a list of lists of datetime objects."""
+            with netCDF4.Dataset(filename, mode='r') as ncdata:
+                var = ncdata.variables['time']
+                conv = netcdftime.utime(var.units, calendar=var.calendar)
+                var = ncdata.variables['time_bnds']
+                time_bnds = conv.num2date(var[:])
+                return time_bnds
+
+        with tempfile.NamedTemporaryFile(mode='r', suffix='.nc') as tfile:
+            filename = tfile.name
+            Model2(start_year=2001, stop_year=2004, oname=filename)
+            time_bnds = get_time_bnds_as_datetime(filename)
+
+            self.assertEqual(len(time_bnds), 4*12)
+
+            start, end = time_bnds[0]
+            self.assertEqual(start.year, 2001)
+            self.assertEqual(start.month, 1)
+            self.assertEqual(start.day, 1)
+            self.assertEqual(end.year, 2001)
+            self.assertEqual(end.month, 2)
+            self.assertEqual(end.day, 1)
+
+            start, end = time_bnds[-1]
+            self.assertEqual(start.year, 2004)
+            self.assertEqual(start.month, 12)
+            self.assertEqual(start.day, 1)
+            self.assertEqual(end.year, 2005)
+            self.assertEqual(end.month, 1)
+            self.assertEqual(end.day, 1)
+
 
 if __name__ == '__main__':
     unittest.main()

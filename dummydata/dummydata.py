@@ -128,11 +128,20 @@ class DummyData(Dataset):
             self.createVariable('areacello', 'f8', ('lat','lon', ))
             self.variables['areacello'][:,:] = np.ones((self.ny,self.nx))
 
-
     def _set_time_data(self):
-        tmp = netcdftime.utime(self.variables['time'].units, calendar=self.variables['time'].calendar)
-        d = [datetime.datetime(self.start,1,1) + relativedelta.relativedelta(months=x) for x in range(0, self.month)]
-        self.variables['time'][:]=tmp.date2num(d)
+        """Set values of the `time` and `time_bnds` variables."""
+        time_bnds = []
+        start = datetime.datetime(self.start, 1, 1)
+        for _ in range(self.month):
+            end = start + relativedelta.relativedelta(months=1)
+            time_bnds.append([start, end])
+            start = end
+        time_convertor = netcdftime.utime(
+            self.variables['time'].units,
+            calendar=self.variables['time'].calendar)
+        time_bnds = time_convertor.date2num(time_bnds)
+        self.variables['time_bnds'][:] = time_bnds
+        self.variables['time'][:] = time_bnds.mean(axis=1)
 
     def _set_coordinate_data(self):
         lat = np.arange(-90., 90., 180./self.ny).astype('float')  # todo is this correct ??
