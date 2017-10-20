@@ -7,7 +7,7 @@ class Metadata(object):
     def _set_dict(self):
         self.dict = {}
         self.dict.update({'ta': {'standard_name': 'air_temperature', 'long_name': 'Air temperature', 'units': 'K', 'original_name': 'T,PS', 'comment': 'T interpolated to standard plevs'}})
-        self.dict.update({'pr': {'standard_name': 'precipitation', 'long_name': 'Precipitation', 'units': 'kg m-2 s-1', 'original_name': 'P', 'comment': 'some precipitation'}})
+        self.dict.update({'pr': {'standard_name': 'precipitation_flux', 'long_name': 'Precipitation', 'units': 'kg m-2 s-1', 'original_name': 'P', 'comment': 'some precipitation'}})
         self.dict.update({'ua': {'standard_name': 'xxxxx', 'long_name': 'xxxxxx', 'units': 'm s-1', 'original_name': 'U', 'comment': 'some wind'}})
         self.dict.update({'mrro': {'standard_name': 'runoff_flux', 'long_name': 'runoff_flux', 'units': 'kg m-2 s-1', 'original_name': 'Q', 'comment': 'some runoff'}})
         self.dict.update({'evspsbl': {'standard_name': 'evaporation', 'long_name': 'evaporation', 'units': 'kg m-2 s-1', 'original_name': 'ET', 'comment': 'some evaporation'}})
