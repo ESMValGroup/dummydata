@@ -10,16 +10,25 @@ system_site_packages: true
 
 before_install:
   - sudo apt-get update
+  - pip install --upgrade pip
 
 # command to install dependencies
 install:
-  - pip install netCDF4
-  - pip install python-dateutil
-  
+  # install binary numpy and scipy
+  - pip install --only-binary=numpy,scipy numpy scipy
+
   # test installation from pip
+  - mkdir tmp
+  - cd tmp
   - pip install dummydata
   - python -c "from dummydata import *"
-  - yes | pip uninstall dummydata
+  - pip uninstall -y dummydata
+  - cd ..
+
+  # install and uninstall checked out copy to make sure all depencencies
+  # are installed
+  - python setup.py install
+  - pip uninstall -y dummydata
 
 script:
   - python setup.py test
