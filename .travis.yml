@@ -14,8 +14,8 @@ before_install:
 # command to install dependencies
 install:
   # test installation from pip
-  - mkdir test
-  - cd test
+  - mkdir tmp
+  - cd tmp
   - pip install dummydata
   - python -c "from dummydata import *"
   - pip uninstall dummydata
