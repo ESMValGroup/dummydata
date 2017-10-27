@@ -14,11 +14,15 @@ before_install:
 # command to install dependencies
 install:
   # test installation from pip
+  - mkdir test
+  - cd test
   - pip install dummydata
   - python -c "from dummydata import *"
-  - yes | pip uninstall dummydata
+  - pip uninstall dummydata
+  - cd ..
 
-  # install checked out copy to make sure all depencencies are installed
+  # install and uninstall checked out copy to make sure all depencencies
+  # are installed
   - python setup.py install
   - pip uninstall -y dummydata
 
