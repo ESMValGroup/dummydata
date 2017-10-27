@@ -15,7 +15,7 @@ before_install:
 # command to install dependencies
 install:
   # install binary numpy and scipy
-  pip install --only-binary=numpy,scipy numpy scipy
+  - pip install --only-binary=numpy,scipy numpy scipy
 
   # test installation from pip
   - mkdir tmp
