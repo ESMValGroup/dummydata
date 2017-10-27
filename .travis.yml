@@ -18,7 +18,7 @@ install:
   - cd tmp
   - pip install dummydata
   - python -c "from dummydata import *"
-  - pip uninstall dummydata
+  - pip uninstall -y dummydata
   - cd ..
 
   # install and uninstall checked out copy to make sure all depencencies
