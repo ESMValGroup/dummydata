@@ -13,13 +13,14 @@ before_install:
 
 # command to install dependencies
 install:
-  - pip install netCDF4
-  - pip install python-dateutil
-  
   # test installation from pip
   - pip install dummydata
   - python -c "from dummydata import *"
   - yes | pip uninstall dummydata
+
+  # install checked out copy to make sure all depencencies are installed
+  - python setup.py install
+  - pip uninstall -y dummydata
 
 script:
   - python setup.py test
