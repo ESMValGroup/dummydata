@@ -10,9 +10,13 @@ system_site_packages: true
 
 before_install:
   - sudo apt-get update
+  - pip install --upgrade pip
 
 # command to install dependencies
 install:
+  # install binary numpy and scipy
+  pip install --only-binary=numpy,scipy numpy scipy
+
   # test installation from pip
   - mkdir tmp
   - cd tmp
