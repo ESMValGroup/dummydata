@@ -2,7 +2,8 @@ import datetime
 
 import numpy as np
 from dateutil import relativedelta
-from netCDF4 import Dataset, netcdftime
+from netCDF4 import Dataset
+import netcdftime
 from scipy.ndimage.filters import gaussian_filter
 
 from .meta import Metadata

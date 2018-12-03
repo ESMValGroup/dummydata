@@ -2,7 +2,7 @@
 
 #~ import datetime
 import unittest
-#~ from netCDF4 import netcdftime
+#~ import netcdftime
 #~ import netCDF4
 
 import sys

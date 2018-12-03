@@ -38,6 +38,7 @@ setup(
         "numpy",
         "python-dateutil",
         "scipy",
+        "netcdftime",
     ],
 
     keywords=["data", "science", "climate", "meteorology",
